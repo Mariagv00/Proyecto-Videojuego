@@ -1,24 +1,35 @@
 <?php
 session_start();
 
-$nombre = $_POST['nombre'];
-$precio = $_POST['precio'];
-$imagen = $_POST['imagen'];
+$nombre = $_POST['nombre'] ?? '';
+$precio = floatval($_POST['precio'] ?? 0);
+$imagen = $_POST['imagen'] ?? '';
 
-$producto = [
-  'nombre' => $nombre,
-  'precio' => $precio,
-  'imagen' => $imagen
-];
+if ($nombre && $imagen) {
+  if (!isset($_SESSION['carrito'])) {
+    $_SESSION['carrito'] = [];
+  }
 
-// Inicializa el carrito si no existe
-if (!isset($_SESSION['carrito'])) {
-  $_SESSION['carrito'] = [];
+  $encontrado = false;
+  foreach ($_SESSION['carrito'] as &$item) {
+    if ($item['nombre'] === $nombre) {
+      $item['cantidad'] += 1;
+      $encontrado = true;
+      break;
+    }
+  }
+
+  if (!$encontrado) {
+    $_SESSION['carrito'][] = [
+      'nombre' => $nombre,
+      'precio' => $precio,
+      'imagen' => $imagen,
+      'cantidad' => 1
+    ];
+  }
 }
 
-// Agrega el producto
-$_SESSION['carrito'][] = $producto;
-
-// Redirige al carrito
-header("Location: ../html/carrito.php");
+// ✅ Redirige de vuelta a tienda para seguir comprando
+header("Location: ../html/tienda.php");
 exit();
+

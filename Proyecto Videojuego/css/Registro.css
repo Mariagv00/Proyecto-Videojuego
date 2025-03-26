@@ -1,4 +1,3 @@
-/* Reset y fondo */
 * {
     box-sizing: border-box;
   }
@@ -16,8 +15,8 @@
     align-items: center;
   }
 
-   /* ✅ NAVBAR */
-   .navbar {
+  /* ✅ NAVBAR */
+  .navbar {
     width: 100%;
     position: fixed;
     top: 0;
@@ -37,7 +36,7 @@
   }
   
   /* Contenedor del formulario */
-  .login-container {
+  .container {
     background-color: rgba(255, 255, 255, 0.95);
     padding: 40px;
     border-radius: 15px;
@@ -46,7 +45,7 @@
     text-align: center;
   }
   
-  .login-container h2 {
+  .container h2 {
     margin-bottom: 25px;
   }
   
